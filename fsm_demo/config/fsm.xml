@@ -1,0 +1,68 @@
+<state_node>
+    root_state_node
+    <state_machine>
+
+        <state_nodes>
+
+            <state_node default="true">wait_in_base</state_node>
+
+            <state_node>
+                outpost_safe
+                <state_machine>
+
+                    <state_nodes>
+
+                        <state_node default="true">defend_outpost</state_node>
+
+                        <state_node>small_energy</state_node>
+
+                    </state_nodes>
+
+                    <state_edges>
+
+                        <state_edge>
+                            <src_node>defend_outpost</src_node>
+                            <dst_node>small_energy</dst_node>
+                            <condition>in_small_energy</condition>
+                        </state_edge>
+
+                        <state_edge>
+                            <src_node>small_energy</src_node>
+                            <dst_node>defend_outpost</dst_node>
+                            <condition>small_energy_complete</condition>
+                        </state_edge>
+
+                    </state_edges>
+
+                </state_machine>
+
+            </state_node>
+
+            <state_node>patrol</state_node>
+
+        </state_nodes>
+
+        <state_edges>
+
+            <state_edge>
+                <src_node>wait_in_base</src_node>
+                <dst_node>outpost_safe</dst_node>
+                <condition>game_start</condition>
+            </state_edge>
+
+            <state_edge>
+                <src_node>outpost_safe</src_node>
+                <dst_node>patrol</dst_node>
+                <condition>outpost_off</condition>
+            </state_edge>
+
+            <state_edge>
+                <src_node>patrol</src_node>
+                <dst_node>wait_in_base</dst_node>
+                <condition>game_end</condition>
+            </state_edge>
+
+        </state_edges>
+
+    </state_machine>
+</state_node>
